@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ванильный слайдер изображений</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+  .slider-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    max-width: 700px;
+    text-align: center;
+  }
+  .image-wrapper {
+    border: 3px solid #4CAF50;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  #slide-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  #slide-info {
+    font-size: 14px;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+<div class="slider-container">
+  <div class="image-wrapper">
+    <img id="slide-image" src="" alt="Слайд" />
+  </div>
+  <div class="controls">
+    <button id="prev">Назад</button>
+    <button id="next">Вперед</button>
+  </div>
+  <div class="slide-info" id="slide-info">Изображение 1 из 5</div>
+</div>
+
+<script>
+  const images = [
+    "https://i.pinimg.com/1200x/93/65/79/936579adba61dbc8215896051f66cfa2.jpg",
+    "https://i.pinimg.com/736x/ca/74/48/ca74488590b932e138481fe0af647161.jpg",
+    "https://i.pinimg.com/736x/6f/68/ed/6f68edcc564d1b813db924d91ae80c20.jpg",
+    "https://i.pinimg.com/736x/c1/0e/46/c10e46a1b1b283a9351bb0a915b40397.jpg",
+    "https://i.pinimg.com/1200x/21/ba/21/21ba21427685861a51c3fa6b794da684.jpg"
+  ];
+
+  let currentIndex = 0;
+
+  const imgElement = document.getElementById("slide-image");
+  const slideInfo = document.getElementById("slide-info");
+  const prevButton = document.getElementById("prev");
+  const nextButton = document.getElementById("next");
+
+  function updateSlide() {
+    imgElement.src = images[currentIndex];
+    slideInfo.textContent = `Изображение ${currentIndex + 1} из ${images.length}`;
+  }
+
+  prevButton.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateSlide();
+  });
+
+  nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSlide();
+  });
+
+  // Изначально показываем первое изображение
+  updateSlide();
+</script>
+</body>
+</html>
